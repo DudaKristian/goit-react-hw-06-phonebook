@@ -1,14 +1,18 @@
 import { useState } from "react";
 import shortId from "shortid";
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { getContact, addContact } from "features/phoneBookSlice";
 
-const Phonebook = ({addContact}) => {
+const Phonebook = () => {
 
     const [name, setName] = useState("");
     const [number, setNumber] = useState("");
 
     const nameInputId = shortId.generate();
     const numberInputId = shortId.generate();
+
+    const dispatch = useDispatch();
+    const contacts = useSelector(getContact);
 
     const onInputChange = e => {
         
@@ -26,6 +30,18 @@ const Phonebook = ({addContact}) => {
         }    
     }
     
+    const addContacts = data => {
+        const contactName =
+            contacts.map(contact =>
+                contact.name.toLowerCase())
+    
+        if (!contactName.includes(data.name.toLowerCase())) {
+            dispatch(addContact(data))
+        } else {
+            return alert(`${data.name} is allready in contacts`)
+        } 
+    };
+    
     const onSubmitHandle = e => {
 
     e.preventDefault();
@@ -35,7 +51,8 @@ const Phonebook = ({addContact}) => {
     number: number,
     id: shortId.generate(),
     }
-    addContact(contact)
+    
+    addContacts(contact)
 
     setName("")
     setNumber("")
@@ -80,9 +97,6 @@ const Phonebook = ({addContact}) => {
         )       
     }
 
-Phonebook.propTypes = {
-    addContact: PropTypes.func.isRequired
-}
 
 export default Phonebook
 

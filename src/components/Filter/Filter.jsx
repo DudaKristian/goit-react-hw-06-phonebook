@@ -1,7 +1,11 @@
 import shortId from "shortid"
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { getFilter, setFilter } from "features/phoneBookSlice";
 
-const Filter = ({onChange, filter}) => {
+const Filter = () => {
+    
+    const dispatch = useDispatch();
+    const filter = useSelector(getFilter);
     
     const filterInputId = shortId.generate();
     
@@ -12,7 +16,7 @@ const Filter = ({onChange, filter}) => {
                 <input type="text"
                     name="filter"
                     id={filterInputId}
-                    onChange={onChange}
+                    onChange={e => dispatch(setFilter(e.target.value))}
                     value = {filter}
                     />
             </label>
@@ -20,9 +24,6 @@ const Filter = ({onChange, filter}) => {
     )
 }
 
-Filter.propTypes = {
-    onChange: PropTypes.func.isRequired,
-    filter: PropTypes.string.isRequired,
-}
+
 
 export default Filter
