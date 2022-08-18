@@ -37,6 +37,10 @@ const Phonebook = () => {
     
         if (!contactName.includes(data.name.toLowerCase())) {
             dispatch(addContact(data))
+
+            setName("")
+            setNumber("")
+
         } else {
             return alert(`${data.name} is allready in contacts`)
         } 
@@ -53,9 +57,6 @@ const Phonebook = () => {
     }
     
     addContacts(contact)
-
-    setName("")
-    setNumber("")
 
     };
 

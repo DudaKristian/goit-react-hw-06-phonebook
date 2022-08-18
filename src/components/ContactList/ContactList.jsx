@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeContact, getContact, getFilter } from 'features/phoneBookSlice';
 
@@ -29,16 +28,6 @@ const ContactList = () => {
             </li>))}
         </ul>
     )
-}
-
-ContactList.propTypes = {
-    filter: PropTypes.arrayOf(PropTypes.shape(
-        {
-            name: PropTypes.string.isRequired,
-            number: PropTypes.string.isRequired,
-            id: PropTypes.string.isRequired
-        }
-    )),
 }
 
 export default ContactList
